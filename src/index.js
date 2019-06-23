@@ -236,7 +236,7 @@ class Board extends React.Component {
         let moves = this.state.moves.slice();
         console.log("Now empty at " + this.state.empty);
         console.log("clicked " + i);
-        let isMoveValid = false;
+        // let isMoveValid = false;
         let keyCode = 0;
         // check same row
         if (Math.floor(i / this.props.size) === Math.floor(this.state.empty / this.props.size)) {
@@ -246,7 +246,6 @@ class Board extends React.Component {
             else if (i - 1 === this.state.empty) {
                 keyCode = 37;
             }
-            isMoveValid = true;
         }
         // check same col
         else if ((i) % this.props.size === (this.state.empty) % this.props.size) {
@@ -256,16 +255,15 @@ class Board extends React.Component {
             else if (i - this.props.size === this.state.empty) {
                 keyCode = 38;
             }
-            isMoveValid = true;
         }
-        if (isMoveValid) {
+        if (keyCode >= 37 && keyCode <= 40) {
             console.log("Moving " + i + " to " + this.state.empty);
             let oldEmpty = this.state.empty;
             let arr = this.state.squares;
             let oldValue = arr[i];
             arr[i] = null;
             arr[oldEmpty] = oldValue;
-            if (keyCode >= 37 && keyCode <= 40) moves.push(keyCode);
+            moves.push(keyCode);
             this.setState({ empty: i, squares: arr, moves: moves });
             if(!this.state.startTime)this.setState({startTime:new Date()})
         }
